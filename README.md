@@ -1,8 +1,8 @@
-= Helm Charts Manager
+# Helm Charts Manager #
 
 A command line tool to lint, plan and deploy helm charts automatically.
 
-### Features
+### Features ###
 
 * Helm chart linting.
 * Helm chart planning and comparison with existing deployment.
@@ -11,12 +11,12 @@ A command line tool to lint, plan and deploy helm charts automatically.
 * Automated updating and re-packaging existing charts
 * Parallelized structure for optimized performance.
 
-### Usage
+### Usage ###
 * `helm-charts-manager lint [options]` : Run helm charts manager in linting mode to check charts for errors and bad practices.
 * `helm-charts-manager plan [options]` : Run helm charts manager in planning mode to see the difference between existing deployment and current charts.
 * `helm-charts-manager apply [options]` : Run helm charts manager in deployment mode to deploy the charts. Apply always plans first and has to be approved before deploying. This behaviour can be overriden with `--auto-approve` option.
 
-### Command line options
+### Command line options ###
 
 * `-h | --help` : Shows the help screen.
 * `-v | --version` : Shows version string.
@@ -27,16 +27,16 @@ A command line tool to lint, plan and deploy helm charts automatically.
 * `--update` : Update and repackage the charts before linting/planning/deploying.
 * `--debug` : Enable debug printouts for every command executed.
 
-### Configuration via YAML
+### Configuration via YAML ###
 Please see `/test/test-config-apply.yaml`
 
-*Important:* `STAGE` and `RELEASE_VERSION` environment variables are mandatory.
+**Important:** `STAGE` and `RELEASE_VERSION` environment variables are mandatory.
 
 It is possible to specify multiple stages in the same configuration file. `STAGE` environment variable serves as a selector between different stages.
 
 In the example file `RELEASE_VERSION` variable is created by concatenating `GIT_VERSION` and `GIT_LATEST_TAG` environment variables and therefore the ordering of commands is also important.
 
-### Example:
+### Example: ###
  helm-charts-manager apply --update --charts nginx,kubernetes-dashboard --charts-path ~/helm/charts/
 
 This example will result in the following actions to be performed by helm charts manager:
