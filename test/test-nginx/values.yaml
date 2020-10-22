@@ -1,0 +1,2 @@
+nginx:
+  containerPort: 12345

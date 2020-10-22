@@ -1,0 +1,656 @@
+Initializing environment...
+Environment initialization completed!
+Updating helm charts...
+Updating helm charts completed!
+Planning helm charts...
+Error: unknown flag: --dry-run
+Usage:
+  diff upgrade [flags] [RELEASE] [CHART]
+
+Examples:
+  helm diff upgrade my-release stable/postgresql --values values.yaml
+
+Flags:
+      --allow-unreleased             enables diffing of releases that are not yet deployed via Helm
+  -C, --context int                  output NUM lines of context around changes (default -1)
+      --detailed-exitcode            return a non-zero exit code when there are changes
+      --devel                        use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored.
+      --disable-openapi-validation   disables rendered templates validation against the Kubernetes OpenAPI Schema
+      --disable-validation           disables rendered templates validation against the Kubernetes cluster you are currently pointing to. This is the same validation performed on an install
+  -h, --help                         help for upgrade
+      --include-tests                enable the diffing of the helm test hooks
+      --install                      enables diffing of releases that are not yet deployed via Helm (equivalent to --allow-unreleased, added to match "helm upgrade --install" command
+      --kubeconfig string            This flag is ignored, to allow passing of this top level flag to helm
+      --no-hooks                     disable diffing of hooks
+      --output string                Possible values: diff, simple, json, template. When set to "template", use the env var HELM_DIFF_TPL to specify the template. (default "diff")
+      --post-renderer string         the path to an executable to be used for post rendering. If it exists in $PATH, the binary will be used, otherwise it will try to look for the executable at the given path
+      --reset-values                 reset the values to the ones built into the chart and merge in any new values
+      --reuse-values                 reuse the last release's values and merge in any new values. If '--reset-values' is specified, this is ignored
+      --set stringArray              set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray         set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray       set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --show-secrets                 do not redact secret values in the output
+      --suppress stringArray         allows suppression of the values listed in the diff output
+  -q, --suppress-secrets             suppress secrets in the output
+  -f, --values valueFiles            specify values in a YAML file (can specify multiple) (default [])
+      --version string               specify the exact chart version to use. If this is not specified, the latest version is used
+
+Global Flags:
+      --no-color   remove colors from the output
+
+Error: plugin "diff" exited with error
+Error: unknown flag: --dry-run
+Usage:
+  diff upgrade [flags] [RELEASE] [CHART]
+
+Examples:
+  helm diff upgrade my-release stable/postgresql --values values.yaml
+
+Flags:
+      --allow-unreleased             enables diffing of releases that are not yet deployed via Helm
+  -C, --context int                  output NUM lines of context around changes (default -1)
+      --detailed-exitcode            return a non-zero exit code when there are changes
+      --devel                        use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored.
+      --disable-openapi-validation   disables rendered templates validation against the Kubernetes OpenAPI Schema
+      --disable-validation           disables rendered templates validation against the Kubernetes cluster you are currently pointing to. This is the same validation performed on an install
+  -h, --help                         help for upgrade
+      --include-tests                enable the diffing of the helm test hooks
+      --install                      enables diffing of releases that are not yet deployed via Helm (equivalent to --allow-unreleased, added to match "helm upgrade --install" command
+      --kubeconfig string            This flag is ignored, to allow passing of this top level flag to helm
+      --no-hooks                     disable diffing of hooks
+      --output string                Possible values: diff, simple, json, template. When set to "template", use the env var HELM_DIFF_TPL to specify the template. (default "diff")
+      --post-renderer string         the path to an executable to be used for post rendering. If it exists in $PATH, the binary will be used, otherwise it will try to look for the executable at the given path
+      --reset-values                 reset the values to the ones built into the chart and merge in any new values
+      --reuse-values                 reuse the last release's values and merge in any new values. If '--reset-values' is specified, this is ignored
+      --set stringArray              set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray         set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray       set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --show-secrets                 do not redact secret values in the output
+      --suppress stringArray         allows suppression of the values listed in the diff output
+  -q, --suppress-secrets             suppress secrets in the output
+  -f, --values valueFiles            specify values in a YAML file (can specify multiple) (default [])
+      --version string               specify the exact chart version to use. If this is not specified, the latest version is used
+
+Global Flags:
+      --no-color   remove colors from the output
+
+Error: plugin "diff" exited with error
+Planning completed!
+Deploying helm charts...
+Release "test-nginx" does not exist. Installing it now.
+NAME: test-nginx
+NAMESPACE: nginx
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+HOOKS:
+MANIFEST:
+---
+# Source: test-nginx/charts/nginx/templates/server-block-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-nginx-server-block
+  labels:
+    app.kubernetes.io/name: nginx
+    helm.sh/chart: nginx-6.0.2
+    app.kubernetes.io/instance: test-nginx
+    app.kubernetes.io/managed-by: Helm
+data:
+  server-blocks-paths.conf: |-
+    include  "/opt/bitnami/nginx/conf/server_blocks/ldap/*.conf";
+    include  "/opt/bitnami/nginx/conf/server_blocks/common/*.conf";
+---
+# Source: test-nginx/charts/nginx/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-nginx
+  labels:
+    app.kubernetes.io/name: nginx
+    helm.sh/chart: nginx-6.0.2
+    app.kubernetes.io/instance: test-nginx
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: "Cluster"
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: https
+      port: 443
+      targetPort: https
+  selector:
+    app.kubernetes.io/name: nginx
+    app.kubernetes.io/instance: test-nginx
+---
+# Source: test-nginx/charts/nginx/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-nginx
+  labels:
+    app.kubernetes.io/name: nginx
+    helm.sh/chart: nginx-6.0.2
+    app.kubernetes.io/instance: test-nginx
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: nginx
+      app.kubernetes.io/instance: test-nginx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: nginx
+        helm.sh/chart: nginx-6.0.2
+        app.kubernetes.io/instance: test-nginx
+        app.kubernetes.io/managed-by: Helm
+    spec:      
+      containers:
+        - name: nginx
+          image: docker.io/bitnami/nginx:1.19.1-debian-10-r0
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - name: http
+              containerPort: 8080
+            
+          livenessProbe:
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            tcpSocket:
+              port: http
+            timeoutSeconds: 5
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            tcpSocket:
+              port: http
+            timeoutSeconds: 3
+          resources:
+            limits: {}
+            requests: {}
+          volumeMounts:
+            - name: nginx-server-block-paths
+              mountPath: /opt/bitnami/nginx/conf/server_blocks
+      volumes:
+        - name: nginx-server-block-paths
+          configMap:
+            name: test-nginx-server-block
+            items:
+              - key: server-blocks-paths.conf
+                path: server-blocks-paths.conf
+
+Release "test-kubernetes-dashboard" does not exist. Installing it now.
+NAME: test-kubernetes-dashboard
+NAMESPACE: default
+STATUS: pending-install
+REVISION: 1
+TEST SUITE: None
+HOOKS:
+MANIFEST:
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/serviceaccount.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+  name: test-kubernetes-dashboard
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/secret.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# kubernetes-dashboard-certs
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+  name: test-kubernetes-dashboard-certs
+type: Opaque
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/secret.yaml
+# kubernetes-dashboard-csrf
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+  name: kubernetes-dashboard-csrf
+type: Opaque
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/secret.yaml
+# kubernetes-dashboard-key-holder
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+  name: kubernetes-dashboard-key-holder
+type: Opaque
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/configmap.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+  name: test-kubernetes-dashboard-settings
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/clusterrole-metrics.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: "test-kubernetes-dashboard-metrics"
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  # Allow Metrics Scraper to get metrics from the Metrics server
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list", "watch"]
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/clusterrolebinding-metrics.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: "test-kubernetes-dashboard-metrics"
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: test-kubernetes-dashboard-metrics
+subjects:
+  - kind: ServiceAccount
+    name: test-kubernetes-dashboard
+    namespace: default
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/role.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: test-kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+rules:
+    # Allow Dashboard to get, update and delete Dashboard exclusive secrets.
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["kubernetes-dashboard-key-holder", "kubernetes-dashboard-certs", "kubernetes-dashboard-csrf"]
+    verbs: ["get", "update", "delete"]
+    # Allow Dashboard to get and update 'kubernetes-dashboard-settings' config map.
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["kubernetes-dashboard-settings"]
+    verbs: ["get", "update"]
+    # Allow Dashboard to get metrics.
+  - apiGroups: [""]
+    resources: ["services"]
+    resourceNames: ["heapster", "dashboard-metrics-scraper"]
+    verbs: ["proxy"]
+  - apiGroups: [""]
+    resources: ["services/proxy"]
+    resourceNames: ["heapster", "http:heapster:", "https:heapster:", "dashboard-metrics-scraper", "http:dashboard-metrics-scraper"]
+    verbs: ["get"]
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/rolebinding.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: test-kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: test-kubernetes-dashboard
+subjects:
+  - kind: ServiceAccount
+    name: test-kubernetes-dashboard
+    namespace: default
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/service.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: kubernetes-dashboard
+    kubernetes.io/cluster-service: "true"
+spec:
+  type: ClusterIP
+  ports:
+  - port: 443
+    targetPort: https
+    name: https
+  selector:
+    app.kubernetes.io/name: kubernetes-dashboard
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/component: kubernetes-dashboard
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/deployment.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-kubernetes-dashboard
+  labels:
+    app.kubernetes.io/name: kubernetes-dashboard
+    helm.sh/chart: kubernetes-dashboard-2.2.0
+    app.kubernetes.io/instance: test-kubernetes-dashboard
+    app.kubernetes.io/version: "2.0.3"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: kubernetes-dashboard
+    override: '"3"'
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubernetes-dashboard
+      app.kubernetes.io/instance: test-kubernetes-dashboard
+      app.kubernetes.io/component: kubernetes-dashboard
+  template:
+    metadata:
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+      labels:
+        app.kubernetes.io/name: kubernetes-dashboard
+        helm.sh/chart: kubernetes-dashboard-2.2.0
+        app.kubernetes.io/instance: test-kubernetes-dashboard
+        app.kubernetes.io/version: "2.0.3"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: kubernetes-dashboard
+    spec:
+      serviceAccountName: test-kubernetes-dashboard
+      containers:
+      - name: kubernetes-dashboard
+        image: "kubernetesui/dashboard:v2.0.3"
+        imagePullPolicy: IfNotPresent
+        args:
+          - --namespace=default
+          - --auto-generate-certificates
+        ports:
+        - name: https
+          containerPort: 8443
+          protocol: TCP
+        volumeMounts:
+        - name: kubernetes-dashboard-certs
+          mountPath: /certs
+          # Create on-disk volume to store exec logs
+        - mountPath: /tmp
+          name: tmp-volume
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /
+            port: 8443
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        resources:
+          limits:
+            cpu: 2
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 2001
+          runAsUser: 1001
+      volumes:
+      - name: kubernetes-dashboard-certs
+        secret:
+          secretName: test-kubernetes-dashboard-certs
+      - name: tmp-volume
+        emptyDir: {}
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/clusterrole-readonly.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/clusterrolebinding-readonly.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/ingress.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/networkpolicy.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Source: test-kubernetes-dashboard/charts/kubernetes-dashboard/templates/pdb.yaml
+# Copyright 2017 The Kubernetes Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+Deployment completed!

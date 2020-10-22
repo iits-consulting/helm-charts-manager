@@ -1,0 +1,3 @@
+kubernetes-dashboard:
+  labels:
+    override: "1"
