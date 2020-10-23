@@ -2,6 +2,9 @@
 
 A command line tool to lint, plan and deploy helm charts automatically.
 
+![CodeQL](https://github.com/iits-consulting/helm-charts-manager/workflows/CodeQL/badge.svg)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+
 ### Features ###
 
 * Helm chart linting.
