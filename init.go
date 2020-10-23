@@ -28,7 +28,7 @@ var PLAN string
 var APPLY string
 
 func init() {
-	HelmChartsManagerArgs = docopt.ParseConfigFromArgs(VERSION)
+	HelmChartsManagerArgs = docopt.ParseConfigFromArgs(version)
 	Config = model.ReadConfigFile(HelmChartsManagerArgs.ConfigFilePath)
 	err := os.Chdir(HelmChartsManagerArgs.ChartsBasePath)
 	if err != nil {
