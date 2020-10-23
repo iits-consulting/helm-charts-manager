@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// VERSION : helm-charts-manager version, automatically updated from the latest git tag during build time.
-var VERSION = "undefined"
+// version : helm-charts-manager version, automatically updated from the latest git tag during build time.
+var version = "undefined"
 
 func main() {
 	var helmCharts = createHelmChartsList()
