@@ -29,8 +29,8 @@ jobs:
     - name: Build
       run: go build -v .
 
-    - name: Test
-      run: go test system_test.go -v
+#    - name: Test
+#      run: go test system_test.go -v
   # Run the linter as a separate job
   golangci:
     name: Lint
