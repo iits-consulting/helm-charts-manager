@@ -24,11 +24,11 @@ jobs:
         run: kubectl get pods -A
       - name: setup helm
         run: |
-          curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm-v${HELM_VERSION}-linux-amd64.tar.gz &&
-          tar -xzf helm-v${HELM_VERSION}-linux-amd64.tar.gz &&
-          mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 &&
-          rm -rf helm-v${HELM_VERSION}-linux-amd64.tar.gz
+          curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz &&
+          tar -xzf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz &&
+          sudo mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 &&
+          rm -rf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
       - name: setup helm diff
-        run: helm plugin install https://github.com/databus23/helm-diff --version v${HELM_DIFF_PLUGIN_VERSION}
+        run: helm plugin install https://github.com/databus23/helm-diff --version ${{ env.HELM_DIFF_PLUGIN_VERSION }}
       - name: test helm
         run: helm version
