@@ -49,17 +49,35 @@ It is possible to specify multiple stages in the same configuration file. `STAGE
 In the example file `RELEASE_VERSION` variable is created by concatenating `GIT_VERSION` and `GIT_LATEST_TAG` environment variables and therefore the ordering of commands is also important.
 
 ### Example: ###
- helm-charts-manager apply --update --charts nginx,kubernetes-dashboard --charts-path ~/helm/charts/
 
-This example will result in the following actions to be performed by helm charts manager:
+First download and install minikube.
+After that Download all files from the example Folder and execute the following commands
 
-* Look for the configuration YAML file at `./helm-charts-manager-config.yaml`
-* Initialize the environment variables.
-* Look for `nginx` and `kubernetes-dashboard` charts inside `~/helm/charts/`
-* Update and repackage the `nginx` and `kubernetes-dashboard` charts inside the directory
-* Plan the deployment for the `nginx` and `kubernetes-dashboard` charts and show the difference between the planned deployment and existing deployment
-* Ask the user if they wish to proceed with the deployment
-* Deploy the `nginx` and `kubernetes-dashboard` charts with helm arguments specified in the configuration YAML file.
+```console
+cd example
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm-charts-manager apply --update
+```
+You should see this output
+
+![ApplyResult](./example/ExampleApply.png)
+
+Now nginx and kubernetes-dashboard should be installed.
+
+If we want to override some values we need to configure the helm-charts-manager-config.yaml file.
+Open helm-charts-manager-config.yaml and add in line 22 at the end "--set kubernetes-dashboard.service.type=NodePort".
+
+Now apply the changes with this command:
+
+```console
+helm-charts-manager apply --charts kubernetes-dashboard
+```
+
+You should see this output
+
+![ChangeResult](./example/ExampleChange.png)
+
+As you can see he just updated kubernetes-dashboard
 
 ## Related projects
 
