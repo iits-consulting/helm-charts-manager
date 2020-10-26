@@ -1,4 +1,4 @@
-package main
+package test
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -15,30 +15,30 @@ func TestMain(m *testing.M) {
 }
 
 func TestLint(t *testing.T) {
-	cmd := exec.Command("./helm-charts-manager", "lint", "--update", "--config-file", "./test/test-config.yaml", "--charts-path", "./test/")
+	cmd := exec.Command("../helm-charts-manager", "lint", "--update", "--config-file", "./test-config.yaml", "--charts-path", "./")
 	result := readByteArray(cmd.CombinedOutput())
 
-	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./test/lint-expected-output.txt")), "\n")
+	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./lint-expected-output.txt")), "\n")
 	for _, line := range expectedOutput {
 		assert.Contains(t, result, line)
 	}
 }
 
 func TestPlan(t *testing.T) {
-	cmd := exec.Command("./helm-charts-manager", "plan", "--update", "--config-file", "./test/test-config.yaml", "--charts-path", "./test/")
+	cmd := exec.Command("../helm-charts-manager", "plan", "--update", "--config-file", "./test-config.yaml", "--charts-path", "./")
 	result := readByteArray(cmd.CombinedOutput())
 
-	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./test/plan-expected-output.txt")), "\n")
+	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./plan-expected-output.txt")), "\n")
 	for _, line := range expectedOutput {
 		assert.Contains(t, result, line)
 	}
 }
 
 func TestApply(t *testing.T) {
-	cmd := exec.Command("./helm-charts-manager", "apply", "--auto-approve", "--update", "--config-file", "./test/test-config.yaml", "--charts-path", "./test/")
+	cmd := exec.Command("../helm-charts-manager", "apply", "--auto-approve", "--update", "--config-file", "./test-config.yaml", "--charts-path", "./")
 	result := readByteArray(cmd.CombinedOutput())
 
-	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./test/apply-expected-output.txt")), "\n")
+	expectedOutput := strings.Split(readByteArray(ioutil.ReadFile("./apply-expected-output.txt")), "\n")
 	for _, line := range expectedOutput {
 		assert.Contains(t, result, line)
 	}

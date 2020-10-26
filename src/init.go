@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"helm-charts-manager/docopt"
-	"helm-charts-manager/model"
+	"helm-charts-manager/src/docopt"
+	"helm-charts-manager/src/model"
 	"log"
 	"os"
 	"strings"

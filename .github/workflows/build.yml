@@ -33,7 +33,7 @@ jobs:
               dep ensure
           fi
       - name: Build
-        run: go build -v .
+        run: go build -v -o helm-charts-manager ./src/*.go
       - name: Upload the built binary executable for testing
         uses: actions/upload-artifact@v2
         with:
@@ -58,9 +58,9 @@ jobs:
           github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Helm
         run: |
-          curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz &&
-          tar -xzf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz &&
-          sudo mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 &&
+          curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
+          tar -xzf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64
           rm -rf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
       - name: Setup Helm plugin diff
         run: helm plugin install https://github.com/databus23/helm-diff --version ${{ env.HELM_DIFF_PLUGIN_VERSION }}
