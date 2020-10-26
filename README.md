@@ -51,20 +51,22 @@ In the example file `RELEASE_VERSION` variable is created by concatenating `GIT_
 ### Example: ###
 
 First download and install minikube.
-After that Download all files from the example Folder and execute the following commands
+
+After that download all files from the example Folder and execute the following commands
 
 ```console
 cd example
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm-charts-manager apply --update
 ```
-You should see this output
+You should see this output:
 
 ![ApplyResult](./example/ExampleApply.png)
 
 Now nginx and kubernetes-dashboard should be installed.
 
 If we want to override some values we need to configure the helm-charts-manager-config.yaml file.
+
 Open helm-charts-manager-config.yaml and add in line 22 at the end "--set kubernetes-dashboard.service.type=NodePort".
 
 Now apply the changes with this command:
