@@ -1,5 +1,5 @@
 env:
-  - STAGE: echo test
+  - STAGE: echo minikube
   - GIT_VERSION: git rev-parse --verify HEAD
   - GIT_LATEST_TAG: git fetch --depth 100 && git describe --abbrev=0 --tags
   - RELEASE_VERSION: echo ${GIT_LATEST_TAG}-${GIT_VERSION}
@@ -13,6 +13,6 @@ defaultHelmArgs:
   test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="2"
 
 stages:
-  test:
+  minikube:
     test-nginx: -n nginx --set nginx.containerPort=8080 --no-color
     test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override=\"3\" --no-color
