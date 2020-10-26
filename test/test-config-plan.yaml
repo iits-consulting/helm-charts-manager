@@ -6,7 +6,7 @@ env:
 
 commandSpec:
   applyCommandArgs: "upgrade -f <chartName>/values.yaml --disable-openapi-validation --create-namespace --atomic --install --wait --timeout 30m <chartName> <chartName>"
-  planCommandArgs: "diff -q -f <chartName>/values.yaml upgrade --allow-unreleased <chartName> <chartName>"
+  planCommandArgs: "diff -q -f <chartName>/values.yaml upgrade --allow-unreleased <chartName> <chartName> --no-color"
 
 defaultHelmArgs:
   test-nginx:
@@ -14,5 +14,5 @@ defaultHelmArgs:
 
 stages:
   minikube:
-    test-nginx: -n nginx --set nginx.containerPort=8080 --no-color
-    test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override=\"3\" --no-color
+    test-nginx: -n nginx --set nginx.containerPort=8080
+    test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override=\"3\"
