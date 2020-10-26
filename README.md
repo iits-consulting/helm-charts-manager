@@ -60,3 +60,7 @@ This example will result in the following actions to be performed by helm charts
 * Plan the deployment for the `nginx` and `kubernetes-dashboard` charts and show the difference between the planned deployment and existing deployment
 * Ask the user if they wish to proceed with the deployment
 * Deploy the `nginx` and `kubernetes-dashboard` charts with helm arguments specified in the configuration YAML file.
+
+## Related projects
+
+- [helmfile](https://github.com/roboll/helmfile) helm-charts-manager is the KISS version of helmfile. 
