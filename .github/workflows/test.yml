@@ -1,23 +1,34 @@
 name: test
-
-on: [ push ]
-
+on:
+  - push
+  - pull_request
 jobs:
   test:
     name: Minikube-Kubernetes Cluster setup for testing
     runs-on: ubuntu-latest
+    environment:
+      MINIKUBE_VERSION: "v1.13.1"
+      KUBERNETES_VERSION: "v1.19.2"
+      HELM_VERSION: "3.2.1"
+      HELM_DIFF_PLUGIN_VERSION: "3.1.2"
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Minikube
         uses: manusa/actions-setup-minikube@v2.0.1
         with:
-          minikube version: 'v1.13.1'
-          kubernetes version: 'v1.19.2'
+          minikube version: ${MINIKUBE_VERSION}
+          kubernetes version: ${KUBERNETES_VERSION}
           github token: ${{ secrets.GITHUB_TOKEN }}
       - name: Interact with the cluster
-        run: kubectl get nodes
+        run: kubectl get pods -A
       - name: setup helm
-        run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
+        run: |
+          curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -o helm-v${HELM_VERSION}-linux-amd64.tar.gz &&
+          tar -xzf helm-v${HELM_VERSION}-linux-amd64.tar.gz &&
+          mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64 &&
+          rm -rf helm-v${HELM_VERSION}-linux-amd64.tar.gz
+      - name: setup helm diff
+        run: helm plugin install https://github.com/databus23/helm-diff --version v${HELM_DIFF_PLUGIN_VERSION}
       - name: test helm
         run: helm version
