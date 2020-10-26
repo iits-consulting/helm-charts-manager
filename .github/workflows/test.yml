@@ -1,0 +1,23 @@
+name: test
+
+on: [ push ]
+
+jobs:
+  test:
+    name: Minikube-Kubernetes Cluster setup for testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Minikube
+        uses: manusa/actions-setup-minikube@v2.0.1
+        with:
+          minikube version: 'v1.13.1'
+          kubernetes version: 'v1.19.2'
+          github token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Interact with the cluster
+        run: kubectl get nodes
+      - name: setup helm
+        run: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
+      - name: test helm
+        run: helm version
