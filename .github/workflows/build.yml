@@ -77,4 +77,4 @@ jobs:
       - name: Fix permissions for execution
         run: sudo chmod 0777 helm-charts-manager
       - name: Test
-        run: go test system_test.go -v
+        run: go test ./test/system_test.go -v
