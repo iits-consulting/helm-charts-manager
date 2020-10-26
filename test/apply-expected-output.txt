@@ -5,14 +5,12 @@ Updating helm charts completed!
 Deploying helm charts...
 Release "test-kubernetes-dashboard" does not exist. Installing it now.
 NAME: test-kubernetes-dashboard
-LAST DEPLOYED: Mon Oct 26 15:38:40 2020
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 Release "test-nginx" does not exist. Installing it now.
 NAME: test-nginx
-LAST DEPLOYED: Mon Oct 26 15:38:40 2020
 NAMESPACE: nginx
 STATUS: deployed
 REVISION: 1

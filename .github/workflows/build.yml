@@ -56,8 +56,6 @@ jobs:
           minikube version: ${{ env.MINIKUBE_VERSION }}
           kubernetes version: ${{ env.KUBERNETES_VERSION }}
           github token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Open Minikube tunnel
-        run: minikube tunnel &
       - name: Setup Helm
         run: |
           curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz &&

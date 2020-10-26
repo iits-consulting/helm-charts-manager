@@ -260,7 +260,7 @@ default, test-kubernetes-dashboard, Deployment (apps) has been added:
 +     app.kubernetes.io/version: "2.0.3"
 +     app.kubernetes.io/managed-by: Helm
 +     app.kubernetes.io/component: kubernetes-dashboard
-+     override: '"3"'
++     override: three
 + spec:
 +   replicas: 1
 +   strategy:

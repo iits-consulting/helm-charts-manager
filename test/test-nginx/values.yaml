@@ -1,2 +1,4 @@
 nginx:
   containerPort: 12345
+  service:
+    type: ClusterIP
