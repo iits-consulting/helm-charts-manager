@@ -1,12 +1,18 @@
 # Helm Charts Manager #
 
-A command line tool to lint, plan and deploy helm charts automatically.
+A command line tool to lint, plan and deploy multiple helm charts easily.
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](hhttps://github.com/iits-consulting/helm-charts-manager/blob/main/LICENSE)
 ![Build](https://github.com/iits-consulting/helm-charts-manager/workflows/Build/badge.svg)
 ![CodeQL](https://github.com/iits-consulting/helm-charts-manager/workflows/CodeQL/badge.svg)
 ![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/helm-charts-manager.svg)
 [![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat)]()
+
+### Prerequisites ###
+
+* A Kubernetes cluster
+* [Helm3 (>=V3.2.4)](https://helm.sh/docs/intro/install/)
+* [Helm Diff Plugin](https://github.com/databus23/helm-diff)
 
 ### Features ###
 
