@@ -10,9 +10,9 @@ commandSpec:
 
 defaultHelmArgs:
   test-nginx:
-  test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="2"
+  test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="two"
 
 stages:
   minikube:
     test-nginx: -n nginx --set nginx.containerPort=8080
-    test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override=\"3\"
+    test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="three"
