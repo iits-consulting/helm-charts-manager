@@ -6,7 +6,7 @@ jobs:
   test:
     name: Minikube-Kubernetes Cluster setup for testing
     runs-on: ubuntu-latest
-    environment:
+    env:
       MINIKUBE_VERSION: v1.13.1
       KUBERNETES_VERSION: v1.19.2
       HELM_VERSION: 3.2.1
