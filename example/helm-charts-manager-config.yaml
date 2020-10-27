@@ -1,0 +1,28 @@
+env:
+  # Mandatory
+  # Stage defines where the changes will be applied to
+  - STAGE: kubectl config current-context
+  # Mandatory
+  - RELEASE_VERSION: echo 1.0.0
+  # You can use any shell command you want for example vault for getting secrets
+  - VAULT_DUMMY_SECRET: vault kv get -field my_secret secret/common/dummy
+
+# Default plan and apply helm commands
+commandSpec:
+  applyCommandArgs: "upgrade -f <chartName>/values.yaml --disable-openapi-validation --create-namespace --atomic --install --wait --timeout 30m <chartName> <chartName>"
+  planCommandArgs: "diff -q -f <chartName>/values.yaml upgrade --allow-unreleased <chartName> <chartName>"
+
+defaultHelmArgs:
+  nginx: -n nginx --set nginx.containerPort=8080
+  kubernetes-dashboard:
+
+stages:
+  minikube:
+    nginx:
+    kubernetes-dashboard:
+  dev:
+    nginx:
+    kubernetes-dashboard:
+  qa:
+    nginx:
+    kubernetes-dashboard:

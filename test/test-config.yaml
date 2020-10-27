@@ -1,0 +1,18 @@
+env:
+  - STAGE: echo minikube
+  - GIT_VERSION: git rev-parse --verify HEAD
+  - GIT_LATEST_TAG: git fetch --depth 100 && git describe --abbrev=0 --tags
+  - RELEASE_VERSION: echo ${GIT_LATEST_TAG}-${GIT_VERSION}
+
+commandSpec:
+  applyCommandArgs: "upgrade -f <chartName>/values.yaml --disable-openapi-validation --create-namespace --atomic --install --wait --timeout 30m <chartName> <chartName>"
+  planCommandArgs: "diff -q -f <chartName>/values.yaml upgrade --allow-unreleased <chartName> <chartName> --no-color"
+
+defaultHelmArgs:
+  test-nginx:
+  test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="two"
+
+stages:
+  minikube:
+    test-nginx: -n nginx --set nginx.containerPort=8080
+    test-kubernetes-dashboard: --set kubernetes-dashboard.labels.override="three"
