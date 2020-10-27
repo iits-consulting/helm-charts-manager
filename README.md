@@ -47,8 +47,6 @@ Please see `/example/helm-charts-manager-config.yaml`
 
 It is possible to specify multiple stages in the same configuration file. `STAGE` environment variable serves as a selector between different stages.
 
-In the example file `RELEASE_VERSION` variable is created by concatenating `GIT_VERSION` and `GIT_LATEST_TAG` environment variables and therefore the ordering of commands is also important.
-
 ### Example: ###
 
 First download and install minikube and helm. Start a local kubernetes cluster with:
