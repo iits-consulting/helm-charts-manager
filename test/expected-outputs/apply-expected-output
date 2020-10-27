@@ -1,0 +1,18 @@
+Initializing environment...
+Environment initialization completed!
+Updating helm charts...
+Updating helm charts completed!
+Deploying helm charts...
+Release "test-kubernetes-dashboard" does not exist. Installing it now.
+NAME: test-kubernetes-dashboard
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+Release "test-nginx" does not exist. Installing it now.
+NAME: test-nginx
+NAMESPACE: nginx
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+Deployment completed!

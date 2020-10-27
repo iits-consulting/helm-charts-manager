@@ -1,0 +1,15 @@
+Initializing environment...
+Environment initialization completed!
+Updating helm charts...
+Updating helm charts completed!
+==> Linting test-nginx
+[INFO] Chart.yaml: icon is recommended
+
+==> Linting test-kubernetes-dashboard
+[INFO] Chart.yaml: icon is recommended
+
+==> Linting test-nginx/charts/nginx-6.0.2.tgz
+
+==> Linting test-kubernetes-dashboard/charts/kubernetes-dashboard-2.2.0.tgz
+
+4 chart(s) linted, 0 chart(s) failed
