@@ -7,7 +7,6 @@ A command line tool to easily lint, plan and deploy multiple helm charts.
 [![Go Report Card](https://goreportcard.com/badge/github.com/iits-consulting/helm-charts-manager)](https://goreportcard.com/report/github.com/iits-consulting/helm-charts-manager)
 ![CodeQL](https://github.com/iits-consulting/helm-charts-manager/workflows/CodeQL/badge.svg)
 ![ViewCount](https://views.whatilearened.today/views/github/iits-consulting/helm-charts-manager.svg)
-[![GitHub last commit](https://img.shields.io/github/last-commit/google/skia.svg?style=flat)]()
 
 ### Prerequisites ###
 
