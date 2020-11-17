@@ -34,6 +34,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	err = os.Setenv("HELM_EXPERIMENTAL_OCI", "1")
+	if err != nil {
+		log.Println(err)
+	}
 	PLAN = Config.CommandSpec["planCommandArgs"]
 	APPLY = Config.CommandSpec["applyCommandArgs"]
 	fmt.Println("Initializing environment...")
