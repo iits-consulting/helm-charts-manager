@@ -5,4 +5,4 @@ dependencies:
     version: 6.0.2
 description: nginx
 name: test-nginx
-version: 1.0.2-67e2f98ce368c340e86e18f3ffe5e70b22cd62a9
+version: 1.0.2-3430d5b8b833277be3e84e90de6156eca55167ab

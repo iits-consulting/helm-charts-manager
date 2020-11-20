@@ -18,9 +18,7 @@ func executeCommand(print bool, name string, arguments string) string {
 		arguments = mainCommand[1]
 	}
 	arg, err := shlex.Split(arguments)
-	if err != nil {
-		fmt.Println(err)
-	}
+	checkExecutionError(err)
 	if HelmChartsManagerArgs.Debug {
 		debugExecuteCommand(name, arg...)
 	}
@@ -30,21 +28,36 @@ func executeCommand(print bool, name string, arguments string) string {
 
 	command := exec.Command(name, arg...)
 	command.Stdin = strings.NewReader(pipeCommandOutput)
-	var barr, _ = command.CombinedOutput()
-	var ret string
-	if len(barr) > 0 && barr[len(barr)-1] == byte(10) {
-		ret = string(barr[:len(barr)-1])
-	} else {
-		ret = string(barr)
-	}
-	if print && len(ret) > 0 {
-		fmt.Println(ret)
-	}
-	return ret
+	var byteArray []byte
+	byteArray, err = command.Output()
+	checkExecutionError(err)
+	return byteArrayToString(print, byteArray)
 }
 
 func debugExecuteCommand(name string, arg ...string) {
 	fmt.Println("DEBUG: Executing command:")
 	fmt.Println("DEBUG:", name, strings.Join(arg, " "))
 	fmt.Println(" ")
+}
+
+func checkExecutionError(err error) {
+	if err != nil {
+		_, ioErr := fmt.Fprintln(os.Stderr, err)
+		if ioErr != nil {
+			panic(ioErr)
+		}
+	}
+}
+
+func byteArrayToString(print bool, byteArray []byte) string {
+	var result string
+	if len(byteArray) > 0 && byteArray[len(byteArray)-1] == byte(10) {
+		result = string(byteArray[:len(byteArray)-1])
+	} else {
+		result = string(byteArray)
+	}
+	if print && len(result) > 0 {
+		fmt.Println(result)
+	}
+	return result
 }
