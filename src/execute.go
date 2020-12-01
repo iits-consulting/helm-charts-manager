@@ -29,7 +29,7 @@ func executeCommand(print bool, name string, arguments string) string {
 	command := exec.Command(name, arg...)
 	command.Stdin = strings.NewReader(pipeCommandOutput)
 	var byteArray []byte
-	byteArray, err = command.Output()
+	byteArray, err = command.CombinedOutput()
 	checkExecutionError(err)
 	return byteArrayToString(print, byteArray)
 }
