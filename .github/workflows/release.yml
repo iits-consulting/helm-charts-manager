@@ -22,3 +22,12 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: iits-consulting/helm-charts-manager/helm-charts-manager
+          tag_with_ref: true
+          build_args: VERSION={GITHUB_REF}
