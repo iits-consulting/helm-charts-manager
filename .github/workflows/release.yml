@@ -30,4 +30,4 @@ jobs:
           registry: docker.pkg.github.com
           repository: iits-consulting/helm-charts-manager/helm-charts-manager
           tag_with_ref: true
-          build_args: VERSION={GITHUB_REF}
+          build_args: VERSION=${GITHUB_REF}
