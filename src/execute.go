@@ -56,7 +56,7 @@ func byteArrayToString(print bool, byteArray []byte) string {
 	} else {
 		result = string(byteArray)
 	}
-	if print && len(result) > 0 {
+	if (HelmChartsManagerArgs.Debug || print) && len(result) > 0 {
 		fmt.Println(result)
 	}
 	return result
