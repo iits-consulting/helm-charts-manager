@@ -8,7 +8,7 @@ import (
 )
 
 func updateCharts(charts []string) {
-	executeCommand(false, "helm", "repo update >/dev/null")
+	executeCommand(false, "helm", "repo update")
 	var waitGroup sync.WaitGroup
 	waitGroup.Add(len(charts))
 	for _, ChartName := range charts {
@@ -23,9 +23,9 @@ func packageAndUpdateChart(waitGroup *sync.WaitGroup, chartName string) {
 	outStrings = append(outStrings, executeCommand(false, "helm",
 		"package "+chartName+" --version "+ReleaseVersion+" -u"))
 	executeCommand(false, "helm",
-		"chart save "+chartName+"-"+ReleaseVersion+".tgz "+chartName+" >/dev/null")
+		"chart save "+chartName+"-"+ReleaseVersion+".tgz "+chartName)
 	executeCommand(false, "helm",
-		"chart export "+chartName+":"+ReleaseVersion+" >/dev/null")
+		"chart export "+chartName+":"+ReleaseVersion)
 	err := os.Remove(chartName + "-" + ReleaseVersion + ".tgz")
 	if err != nil {
 		outStrings = append(outStrings, err.Error())
