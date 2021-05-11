@@ -30,19 +30,12 @@ func ParseConfigFromArgs(version string) HelmChartsManagerArgs {
 	config.Apply = arguments["apply"].(bool)
 	config.Plan = arguments["plan"].(bool)
 	config.Lint = arguments["lint"].(bool)
-	parseListUnmanaged(config, arguments)
-	parseOptions(config, arguments)
-	return config
-}
 
-func parseListUnmanaged(config HelmChartsManagerArgs, arguments docopt.Opts) {
 	config.ListUnmanaged = arguments["list-unmanaged"].(bool)
 	if arguments["--skip-namespaces"] != nil {
 		config.NamespacesToBeSkipped = strings.Split(arguments["--skip-namespaces"].(string), ",")
 	}
-}
 
-func parseOptions(config HelmChartsManagerArgs, arguments docopt.Opts) {
 	config.ConfigFilePath = arguments["--config-file"].(string)
 	config.ChartsBasePath = arguments["--charts-path"].(string)
 	if arguments["--charts"] != nil {
@@ -51,4 +44,5 @@ func parseOptions(config HelmChartsManagerArgs, arguments docopt.Opts) {
 	config.AutoApprove = arguments["--auto-approve"].(bool)
 	config.Update = arguments["--update"].(bool)
 	config.Debug = arguments["--debug"].(bool)
+	return config
 }
