@@ -47,7 +47,7 @@ jobs:
     env:
       MINIKUBE_VERSION: v1.13.1
       KUBERNETES_VERSION: v1.19.2
-      HELM_VERSION: v3.2.1
+      HELM_VERSION: v3.2.4
       HELM_DIFF_PLUGIN_VERSION: v3.1.2
     steps:
       - name: Setup Minikube
