@@ -5,7 +5,7 @@ on:
 jobs:
   lint:
     name: Lint the helm-charts-manager source code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,7 +17,7 @@ jobs:
 
   build:
     name: Build the helm-charts-manager
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Setup Go
         uses: actions/setup-go@v2
@@ -43,7 +43,7 @@ jobs:
   test:
     name: Test the helm-charts-manager in minikube environment
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     env:
       MINIKUBE_VERSION: v1.13.1
       KUBERNETES_VERSION: v1.19.2
