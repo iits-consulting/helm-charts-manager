@@ -40,41 +40,41 @@ jobs:
           name: build
           path: helm-charts-manager
 
-#  test:
-#    name: Test the helm-charts-manager in minikube environment
-#    needs: build
-#    runs-on: ubuntu-18.04
-#    env:
-#      MINIKUBE_VERSION: v1.13.1
-#      KUBERNETES_VERSION: v1.19.2
-#      HELM_VERSION: v3.2.4
-#      HELM_DIFF_PLUGIN_VERSION: v3.1.2
-#    steps:
-#      - name: Setup Minikube
-#        uses: manusa/actions-setup-minikube@v2.0.1
-#        with:
-#          minikube version: ${{ env.MINIKUBE_VERSION }}
-#          kubernetes version: ${{ env.KUBERNETES_VERSION }}
-#          github token: ${{ secrets.GITHUB_TOKEN }}
-#      - name: Setup Helm
-#        run: |
-#          curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
-#          tar -xzf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
-#          sudo mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64
-#          rm -rf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
-#      - name: Setup Helm plugin diff
-#        run: helm plugin install https://github.com/databus23/helm-diff --version ${{ env.HELM_DIFF_PLUGIN_VERSION }}
-#      - name: Setup Go
-#        uses: actions/setup-go@v2
-#        with:
-#          go-version: ^1.13
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#      - name: Download the built binary executable from build stage
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: build
-#      - name: Set permissions for test execution
-#        run: sudo chmod 0777 helm-charts-manager
-#      - name: Test
-#        run: go test ./test/system_test.go -v
+  test:
+    name: Test the helm-charts-manager in minikube environment
+    needs: build
+    runs-on: ubuntu-18.04
+    env:
+      MINIKUBE_VERSION: v1.13.1
+      KUBERNETES_VERSION: v1.19.2
+      HELM_VERSION: v3.2.4
+      HELM_DIFF_PLUGIN_VERSION: v3.1.2
+    steps:
+      - name: Setup Minikube
+        uses: manusa/actions-setup-minikube@v2.0.1
+        with:
+          minikube version: ${{ env.MINIKUBE_VERSION }}
+          kubernetes version: ${{ env.KUBERNETES_VERSION }}
+          github token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Helm
+        run: |
+          curl -L https://get.helm.sh/helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz -o helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
+          tar -xzf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
+          sudo mv linux-amd64/helm /usr/local/bin/helm && rm -rf linux-amd64
+          rm -rf helm-${{ env.HELM_VERSION }}-linux-amd64.tar.gz
+      - name: Setup Helm plugin diff
+        run: helm plugin install https://github.com/databus23/helm-diff --version ${{ env.HELM_DIFF_PLUGIN_VERSION }}
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.13
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download the built binary executable from build stage
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Set permissions for test execution
+        run: sudo chmod 0777 helm-charts-manager
+      - name: Test
+        run: go test ./test/system_test.go -v
