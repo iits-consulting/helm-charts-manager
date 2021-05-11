@@ -24,9 +24,10 @@ A command line tool to easily lint, plan and deploy multiple helm charts.
 * Parallelized structure for optimized performance.
 
 ### Usage ###
-* `helm-charts-manager lint [options]` : Run helm charts manager in linting mode to check charts for errors and bad practices.
 * `helm-charts-manager plan [options]` : Run helm charts manager in planning mode to see the difference between existing deployment and current charts.
 * `helm-charts-manager apply [options]` : Run helm charts manager in deployment mode to deploy the charts. Apply always plans first and has to be approved before deploying. This behaviour can be overriden with `--auto-approve` option.
+* `helm-charts-manager lint [options]` : Run helm charts manager in linting mode to check charts for errors and bad practices.
+* `helm-charts-manager list-unmanaged [--skip-namespaces=namespace1,namespace2] [options]` : Print out helm charts which are not managed by helm charts manager
 
 ### Command line options ###
 

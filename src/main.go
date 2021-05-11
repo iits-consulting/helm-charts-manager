@@ -19,6 +19,9 @@ func main() {
 	if HelmChartsManagerArgs.Lint {
 		executeHelmLint(helmCharts)
 	}
+	if HelmChartsManagerArgs.ListUnmanaged {
+		executeListUnmanaged(helmCharts, HelmChartsManagerArgs.NamespacesToBeSkipped)
+	}
 	if HelmChartsManagerArgs.Plan {
 		fmt.Println("Planning helm charts...")
 		chartsToChange := executeHelmCommandsForCharts(helmCharts, PLAN)

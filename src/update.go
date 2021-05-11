@@ -20,8 +20,9 @@ func updateCharts(charts []string) {
 //update chart version based on git version and tag and update dependencies
 func packageAndUpdateChart(waitGroup *sync.WaitGroup, chartName string) {
 	var outStrings []string
+	executeCommand(false, "helm", "dependency update --skip-refresh "+chartName)
 	outStrings = append(outStrings, executeCommand(false, "helm",
-		"package "+chartName+" --version "+ReleaseVersion+" -u"))
+		"package "+chartName+" --version "+ReleaseVersion))
 	executeCommand(false, "helm",
 		"chart save "+chartName+"-"+ReleaseVersion+".tgz "+chartName)
 	executeCommand(false, "helm",
