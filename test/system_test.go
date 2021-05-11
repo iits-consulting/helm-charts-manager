@@ -44,6 +44,20 @@ func TestApply(t *testing.T) {
 	}
 }
 
+func TestListUnmanaged(t *testing.T) {
+	cmd := exec.Command("../helm-charts-manager", "list-unmanaged", "--config-file", "./test-config.yaml", "--charts-path", "./")
+	result := readByteArray(cmd.CombinedOutput())
+
+	assert.Contains(t, result, "Warning this charts are not managed by helm-charts-manager:")
+}
+
+func TestListUnmanagedWithSkipNamespaces(t *testing.T) {
+	cmd := exec.Command("../helm-charts-manager", "list-unmanaged", "--skip-namespaces=default", "--config-file", "./test-config.yaml", "--charts-path", "./")
+	result := readByteArray(cmd.CombinedOutput())
+
+	assert.Contains(t, result, "Warning this charts are not managed by helm-charts-manager:")
+}
+
 func readByteArray(byteArray []byte, err error) string {
 	if err != nil {
 		panic(err)
