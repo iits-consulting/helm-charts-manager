@@ -1,4 +1,4 @@
-FROM iits/vault-kubectl-helm:3.2.1-openapifix-stablerepofix
+FROM iits/vault-kubectl-helm-limited-user:3.2.1-openapifix-stablerepofix
 ARG VERSION
 ARG GITHUB_REPOSITORY
 WORKDIR /opt
