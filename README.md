@@ -1,4 +1,4 @@
-# Helm Charts Manager #
+# Helm Charts Manager (Deprecated please use ArgoCD/Flux instead)#
 
 A command line tool to easily lint, plan and deploy multiple helm charts.
 
